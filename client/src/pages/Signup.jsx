@@ -81,41 +81,61 @@ const Signup = () => {
           {error && <div className="bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 p-3 rounded-lg mb-4 text-center text-sm font-medium">{error}</div>}
           
           <form className="space-y-4" onSubmit={handleSubmit}>
-            <div>
+            <div className="relative group">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#10b981] group-focus-within:text-[#059669] transition-colors">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
               <input 
                 type="text" 
-                placeholder="Name" 
-                className="w-full p-3 border-2 border-[#10b981] rounded-full text-gray-800 dark:text-gray-100 focus:outline-none focus:border-[#059669] shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_20px_rgba(5,150,105,0.5)] bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 font-medium text-sm transition-all"
+                placeholder="Full Name" 
+                className="w-full p-3 pl-14 border-2 border-[#10b981]/30 rounded-full text-gray-800 dark:text-gray-100 focus:outline-none focus:border-[#059669] shadow-[0_5px_15px_rgba(16,185,129,0.1)] focus:shadow-[0_8px_25px_rgba(16,185,129,0.2)] bg-white dark:bg-gray-800/50 backdrop-blur-sm placeholder-gray-400 font-medium text-sm transition-all text-sm"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
-            <div>
+            <div className="relative group">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#10b981] group-focus-within:text-[#059669] transition-colors">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
               <input 
                 type="email" 
-                placeholder="Email" 
-                className="w-full p-3 border-2 border-[#10b981] rounded-full text-gray-800 dark:text-gray-100 focus:outline-none focus:border-[#059669] shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_20px_rgba(5,150,105,0.5)] bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 font-medium text-sm transition-all"
+                placeholder="Email Address" 
+                className="w-full p-3 pl-14 border-2 border-[#10b981]/30 rounded-full text-gray-800 dark:text-gray-100 focus:outline-none focus:border-[#059669] shadow-[0_5px_15px_rgba(16,185,129,0.1)] focus:shadow-[0_8px_25px_rgba(16,185,129,0.2)] bg-white dark:bg-gray-800/50 backdrop-blur-sm placeholder-gray-400 font-medium text-sm transition-all text-sm"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
-            <div>
+            <div className="relative group">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#10b981] group-focus-within:text-[#059669] transition-colors">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
               <input 
                 type="password" 
                 placeholder="Password" 
-                className="w-full p-3 border-2 border-[#10b981] rounded-full text-gray-800 dark:text-gray-100 focus:outline-none focus:border-[#059669] shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_20px_rgba(5,150,105,0.5)] bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 font-medium text-sm transition-all"
+                className="w-full p-3 pl-14 border-2 border-[#10b981]/30 rounded-full text-gray-800 dark:text-gray-100 focus:outline-none focus:border-[#059669] shadow-[0_5px_15px_rgba(16,185,129,0.1)] focus:shadow-[0_8px_25px_rgba(16,185,129,0.2)] bg-white dark:bg-gray-800/50 backdrop-blur-sm placeholder-gray-400 font-medium text-sm transition-all text-sm"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
-            <div>
+            <div className="relative group">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#10b981] group-focus-within:text-[#059669] transition-colors">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
               <input 
                  type="password" 
                  placeholder="Confirm Password" 
-                 className="w-full p-3 border-2 border-[#10b981] rounded-full text-gray-800 dark:text-gray-100 focus:outline-none focus:border-[#059669] shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_20px_rgba(5,150,105,0.5)] bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 font-medium text-sm transition-all"
+                 className="w-full p-3 pl-14 border-2 border-[#10b981]/30 rounded-full text-gray-800 dark:text-gray-100 focus:outline-none focus:border-[#059669] shadow-[0_5px_15px_rgba(16,185,129,0.1)] focus:shadow-[0_8px_25px_rgba(16,185,129,0.2)] bg-white dark:bg-gray-800/50 backdrop-blur-sm placeholder-gray-400 font-medium text-sm transition-all text-sm"
                  value={confirmPassword}
                  onChange={(e) => setConfirmPassword(e.target.value)}
                  required
