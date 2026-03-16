@@ -2,33 +2,42 @@ import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { 
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  PieChart, Pie, Cell
+} from 'recharts';
 import DashboardSidebar from "../components/DashboardSidebar";
 import DashboardHeader from "../components/DashboardHeader";
 import StatCard from "../components/StatCard";
 import MedicineTable from "../components/MedicineTable";
-import AddMedicineModal from "../components/AddMedicineModal";
+
+// Mock data for analytics (In real app, this would come from API)
+const revenueData = [
+  { name: 'Jan', revenue: 45000 }, { name: 'Feb', revenue: 52000 }, { name: 'Mar', revenue: 48000 },
+  { name: 'Apr', revenue: 61000 }, { name: 'May', revenue: 55000 }, { name: 'Jun', revenue: 67000 },
+  { name: 'Jul', revenue: 72000 }, { name: 'Aug', revenue: 69000 }, { name: 'Sep', revenue: 81000 },
+  { name: 'Oct', revenue: 85000 }, { name: 'Nov', revenue: 92000 }, { name: 'Dec', revenue: 105000 },
+];
+
+const categoryData = [
+  { name: 'Tablets', value: 45, color: '#16a34a' },
+  { name: 'Syrups', value: 20, color: '#22c55e' },
+  { name: 'Injections', value: 10, color: '#4ade80' },
+  { name: 'Antibiotics', value: 15, color: '#86efac' },
+  { name: 'Others', value: 10, color: '#bbf7d0' },
+];
 
 const Dashboard = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [medicines, setMedicines] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-
-  // Form states for adding medicine
-  const [name, setName] = useState('');
-  const [stock, setStock] = useState('');
-  const [price, setPrice] = useState('');
 
   useEffect(() => {
     if (!user) {
       navigate('/login');
     } else if (user.role === 'pharmacy') {
       fetchMyMedicines();
-      // Auto-open modal if on /dashboard/add
-      if (window.location.pathname === '/dashboard/add') {
-        setIsAddModalOpen(true);
-      }
     } else {
       setLoading(false);
     }
@@ -43,25 +52,6 @@ const Dashboard = () => {
     } catch (error) {
       console.error('Error fetching medicines', error);
       setLoading(false);
-    }
-  };
-
-  const handleAddMedicine = async (e) => {
-    e.preventDefault();
-    try {
-      const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const { data } = await axios.post('http://localhost:5000/api/medicines', {
-        name,
-        stock: Number(stock),
-        price: Number(price)
-      }, config);
-      setMedicines([...medicines, { ...data, pharmacyId: { _id: user._id, name: user.name } }]);
-      setName('');
-      setStock('');
-      setPrice('');
-      setIsAddModalOpen(false);
-    } catch (error) {
-      alert(error.response?.data?.message || 'Error adding medicine');
     }
   };
 
@@ -119,7 +109,7 @@ const Dashboard = () => {
   const stockStats = {
      total: medicines.length,
      available: medicines.filter(m => m.stock > 10).length,
-     low: medicines.filter(m => m.stock <= 10 && m.stock > 0).length,
+     low: medicines.filter(m => m.stock <= 20 && m.stock > 0).length,
      out: medicines.filter(m => m.stock === 0).length
   };
 
@@ -128,46 +118,101 @@ const Dashboard = () => {
       <DashboardSidebar logout={logout} />
       
       <main className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
-        {/* Decorative Background Blob */}
         <div className="absolute top-0 right-0 w-[50rem] h-[50rem] bg-emerald-200/20 dark:bg-emerald-500/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
         <DashboardHeader pharmacyName={user.name} />
         
-        <div className="flex-1 p-14 space-y-14 overflow-y-auto custom-scrollbar relative z-10">
-          <div className="space-y-2">
-            <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter leading-none">Operations Hub</h1>
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 dark:text-emerald-500/50">Real-time Inventory Monitoring</p>
+        <div className="flex-1 p-14 space-y-12 overflow-y-auto custom-scrollbar relative z-10">
+          {/* Header Section */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="space-y-2">
+              <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter leading-none">Operations Hub</h1>
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 dark:text-emerald-500/50">Real-time Inventory Monitoring & Business Intelligence</p>
+            </div>
+            <div className="flex gap-4">
+               <button onClick={() => navigate('/reports')} className="px-8 py-4 bg-white dark:bg-emerald-900/20 border border-emerald-100 dark:border-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:bg-emerald-50 transition-all shadow-sm">
+                  View Full Reports
+               </button>
+               <button onClick={() => navigate('/medicines/add')} className="px-8 py-4 bg-emerald-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-900/20 hover:bg-emerald-700 transition-all">
+                  Add New Stock
+               </button>
+            </div>
           </div>
 
-          {/* Stats Grid */}
+          {/* Stats Analytics Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
-            <StatCard title="Global Catalog" value={stockStats.total} type="total" />
-            <StatCard title="Optimal Stock" value={stockStats.available} type="available" />
-            <StatCard title="Depleted" value={stockStats.low} type="low" />
-            <StatCard title="Zero Balance" value={stockStats.out} type="out" />
+            <StatCard title="Global Catalog" value={stockStats.total} type="total" sub="Items in inventory" />
+            <StatCard title="Optimal Stock" value={stockStats.available} type="available" sub="Healthy levels" />
+            <StatCard title="Low Stock Assets" value={stockStats.low} type="low" sub="Threshold < 20 units" />
+            <StatCard title="Revenue (MTD)" value="₹1.2M" type="out" sub="+12.5% vs Last Gold" />
+          </div>
+
+          {/* Analytics Charts Grid */}
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
+             {/* Revenue Trend */}
+             <div className="xl:col-span-2 bg-white dark:bg-[#064E3B]/40 backdrop-blur-sm p-10 rounded-[3rem] border border-gray-50 dark:border-white/5 shadow-xl group">
+                <div className="flex items-center justify-between mb-8">
+                   <h3 className="text-2xl font-black text-gray-900 dark:text-white tracking-tight">Revenue Analytics</h3>
+                   <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 dark:bg-emerald-500/10 px-4 py-1.5 rounded-lg">Performance Trend</span>
+                </div>
+                <div className="h-[300px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={revenueData}>
+                      <defs>
+                        <linearGradient id="colorRevDash" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#16a34a" stopOpacity={0.3}/>
+                          <stop offset="95%" stopColor="#16a34a" stopOpacity={0}/>
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
+                      <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 10, fontWeight: 800}} />
+                      <YAxis axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 10, fontWeight: 800}} tickFormatter={(v) => `₹${v/1000}k`} />
+                      <Tooltip contentStyle={{ borderRadius: '1.5rem', border: 'none', boxShadow: '0 20px 50px rgba(0,0,0,0.1)' }} />
+                      <Area type="monotone" dataKey="revenue" stroke="#16a34a" strokeWidth={4} fillOpacity={1} fill="url(#colorRevDash)" />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+             </div>
+
+             {/* AI Insights Card */}
+             <div className="bg-emerald-600 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden flex flex-col justify-between">
+                <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                <div>
+                   <div className="flex items-center gap-4 mb-8">
+                      <div className="p-3 bg-white/20 backdrop-blur-md rounded-2xl">⚡</div>
+                      <h3 className="text-2xl font-black tracking-tight leading-none">AI Intelligence</h3>
+                   </div>
+                   <div className="space-y-4">
+                      {[
+                        { l: 'Bestseller', v: 'Dolo 650' },
+                        { l: 'Risk Alert', v: '12 Expiring' },
+                        { l: 'Restock Rec', v: 'Azithromycin' }
+                      ].map((item, i) => (
+                        <div key={i} className="p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10">
+                           <p className="text-[9px] font-black uppercase tracking-widest opacity-60 mb-1">{item.l}</p>
+                           <p className="font-bold text-sm">{item.v}</p>
+                        </div>
+                      ))}
+                   </div>
+                </div>
+                <button className="w-full mt-8 py-4 bg-white text-emerald-600 rounded-xl font-black text-[9px] uppercase tracking-widest shadow-xl">
+                   Full Diagnostics
+                </button>
+             </div>
           </div>
 
           {/* Table Container */}
-          <MedicineTable 
-             medicines={medicines}
-             onDelete={handleDelete}
-             onEdit={(med) => alert(`Editing ${med.name}`)}
-             onAdd={() => setIsAddModalOpen(true)}
-          />
+          <div className="space-y-6">
+            <h3 className="text-2xl font-black text-gray-900 dark:text-white tracking-tight">Active Inventory</h3>
+            <MedicineTable 
+               medicines={medicines}
+               onDelete={handleDelete}
+               onEdit={(med) => alert(`Editing ${med.name}`)}
+               onAdd={() => navigate('/medicines/add')}
+            />
+          </div>
         </div>
       </main>
-
-      <AddMedicineModal 
-        isOpen={isAddModalOpen}
-        onClose={() => setIsAddModalOpen(false)}
-        onSubmit={handleAddMedicine}
-        name={name}
-        setName={setName}
-        stock={stock}
-        setStock={setStock}
-        price={price}
-        setPrice={setPrice}
-      />
     </div>
   );
 };
