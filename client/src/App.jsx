@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Search from "./pages/Search";
 import Pharmacies from "./pages/Pharmacies";
 import ProfilePage from "./pages/ProfilePage";
+import AddMedicine from "./pages/AddMedicine";
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
 
@@ -37,6 +38,9 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/dashboard/add" element={<Dashboard />} />
+                <Route path="/dashboard/inventory" element={<Dashboard />} />
+                <Route path="/medicines/add" element={<AddMedicine />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/pharmacies" element={<Pharmacies />} />
                 <Route path="/profile" element={<ProfilePage />} />
