@@ -14,7 +14,7 @@ const Home = () => {
   };
 
   return (
-    <div className="font-sans bg-white dark:bg-gray-900 transition-colors">
+    <div className="bg-white dark:bg-gray-900 transition-colors">
       {/* Hero Section */}
       <section
         className="relative bg-[#f5fbf7] dark:bg-emerald-950/20 bg-cover bg-center bg-no-repeat overflow-hidden py-10 lg:py-28 px-4 flex flex-col items-center justify-center min-h-[500px]"
@@ -106,12 +106,36 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
-              { title: 'Real-time Stock', desc: 'Our unique algorithm syncs with local store data to show you exactly what is in stock.', icon: '⚡' },
-              { title: 'Price Alerts', desc: 'Find the lowest prices and get notified when your essential meds go on sale.', icon: '💰' },
-              { title: 'Verified Only', desc: 'Safety first. Every pharmacy on our platform is 100% certified and vetted.', icon: '🛡️' }
+              { 
+                title: 'Real-time Stock', 
+                desc: 'Our unique algorithm syncs with local store data to show you exactly what is in stock.', 
+                icon: (
+                  <svg className="w-12 h-12 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                )
+              },
+              { 
+                title: 'Price Alerts', 
+                desc: 'Find the lowest prices and get notified when your essential meds go on sale.', 
+                icon: (
+                  <svg className="w-12 h-12 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3 1.343 3 3-1.343 3-3 3m0-12c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3m0-2v2m0 16v2" />
+                  </svg>
+                )
+              },
+              { 
+                title: 'Verified Only', 
+                desc: 'Safety first. Every pharmacy on our platform is 100% certified and vetted.', 
+                icon: (
+                  <svg className="w-12 h-12 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                )
+              }
             ].map((feature, idx) => (
-              <div key={idx} className="bg-white dark:bg-gray-800 p-12 rounded-[50px] shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 group">
-                <div className="text-6xl mb-8 group-hover:bounce transition-transform">{feature.icon}</div>
+              <div key={idx} className="bg-white dark:bg-gray-800 p-12 rounded-[50px] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_60px_-10px_rgba(16,185,129,0.15)] transition-all duration-500 border border-gray-100 dark:border-gray-700 group hover:-translate-y-2">
+                <div className="mb-8 p-4 bg-emerald-50 dark:bg-emerald-950/30 rounded-2xl w-fit group-hover:scale-110 transition-transform duration-500">{feature.icon}</div>
                 <h3 className="text-2xl font-bold text-gray-800 dark:text-emerald-400 mb-6">{feature.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-lg font-medium">{feature.desc}</p>
               </div>
