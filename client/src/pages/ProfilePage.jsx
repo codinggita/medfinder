@@ -5,7 +5,7 @@ import { ThemeContext } from '../context/ThemeContext';
 const ProfilePage = () => {
   const { user } = useContext(AuthContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
-  
+
   const [name, setName] = useState(user?.name || 'John Doe');
   const [email, setEmail] = useState(user?.email || 'john.doe@email.com');
   const [password, setPassword] = useState('********');
@@ -23,15 +23,15 @@ const ProfilePage = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-16 bg-white dark:bg-gray-900 transition-colors duration-500">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        
+
         {/* Left Side - Profile Form */}
         <div className="bg-[#fcfdfc] dark:bg-gray-800/50 p-12 rounded-[50px] shadow-[0_30px_100px_rgba(0,0,0,0.04)] border border-emerald-50 dark:border-gray-700/50 backdrop-blur-xl">
           <div className="flex flex-col items-center mb-16">
             <div className="relative mb-8 group">
               <div className="w-40 h-40 rounded-full border-8 border-emerald-50 dark:border-emerald-900/30 p-1 bg-white dark:bg-gray-800 shadow-xl overflow-hidden transition-all duration-500 group-hover:scale-105">
-                <img 
-                  src={`https://ui-avatars.com/api/?name=${name}&background=059669&color=fff&size=200`} 
-                  alt="Profile" 
+                <img
+                  src={`https://ui-avatars.com/api/?name=${name}&background=059669&color=fff&size=200`}
+                  alt="Profile"
                   className="w-full h-full rounded-full object-cover"
                 />
               </div>
@@ -45,16 +45,16 @@ const ProfilePage = () => {
             </div>
             <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-2">{name}</h2>
             <div className="flex items-center gap-2">
-               <span className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
-               <p className="text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest text-xs">{user?.role || 'Guest'} ACCOUNT</p>
+              <span className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
+              <p className="text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest text-xs">{user?.role || 'Guest'} ACCOUNT</p>
             </div>
           </div>
 
           <form onSubmit={handleUpdate} className="space-y-8">
             <div className="space-y-2">
               <label className="text-sm font-black text-gray-400 dark:text-gray-500 uppercase ml-6 tracking-widest">Full Name</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full px-8 py-5 bg-white dark:bg-gray-900 border-2 border-emerald-50 dark:border-gray-700/50 rounded-full text-gray-800 dark:text-white focus:outline-none focus:border-[#059669] transition-all font-bold shadow-inner"
@@ -63,8 +63,8 @@ const ProfilePage = () => {
 
             <div className="space-y-2">
               <label className="text-sm font-black text-gray-400 dark:text-gray-500 uppercase ml-6 tracking-widest">Email Address</label>
-              <input 
-                type="email" 
+              <input
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-8 py-5 bg-white dark:bg-gray-900 border-2 border-emerald-50 dark:border-gray-700/50 rounded-full text-gray-800 dark:text-white focus:outline-none focus:border-[#059669] transition-all font-bold shadow-inner"
@@ -74,25 +74,25 @@ const ProfilePage = () => {
             <div className="space-y-2">
               <label className="text-sm font-black text-gray-400 dark:text-gray-500 uppercase ml-6 tracking-widest">Account Password</label>
               <div className="relative">
-                <input 
-                  type="password" 
+                <input
+                  type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                   className="w-full px-8 py-5 bg-white dark:bg-gray-900 border-2 border-emerald-50 dark:border-gray-700/50 rounded-full text-gray-800 dark:text-white focus:outline-none focus:border-[#059669] transition-all font-bold shadow-inner"
+                  className="w-full px-8 py-5 bg-white dark:bg-gray-900 border-2 border-emerald-50 dark:border-gray-700/50 rounded-full text-gray-800 dark:text-white focus:outline-none focus:border-[#059669] transition-all font-bold shadow-inner"
                 />
                 <button type="button" className="absolute right-6 top-1/2 -translate-y-1/2 text-[#059669] font-bold text-sm tracking-widest hover:text-[#047857]">REVEAL</button>
               </div>
             </div>
 
             <div className="pt-10 flex flex-col md:flex-row gap-6">
-              <button 
+              <button
                 type="submit"
                 disabled={isUpdating}
                 className="flex-1 bg-[#059669] text-white py-6 rounded-full font-black text-xl hover:bg-[#047857] shadow-xl hover:shadow-[#059669]/20 transition-all active:scale-95 disabled:opacity-50"
               >
                 {isUpdating ? 'Saving Changes...' : 'Save Settings'}
               </button>
-              <button 
+              <button
                 type="button"
                 className="flex-1 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 py-6 rounded-full font-black text-xl hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-100 dark:border-gray-700 transition-all active:scale-95"
               >
@@ -113,7 +113,7 @@ const ProfilePage = () => {
                   <div className="font-black text-gray-800 dark:text-gray-100 text-lg">Dark Mode</div>
                   <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">Easier on the eyes in low light.</p>
                 </div>
-                <button 
+                <button
                   onClick={toggleTheme}
                   className={`w-16 h-8 rounded-full transition-colors duration-300 relative ${theme === 'dark' ? 'bg-[#059669]' : 'bg-gray-200'}`}
                 >
