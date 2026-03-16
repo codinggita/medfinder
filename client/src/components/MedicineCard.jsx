@@ -23,7 +23,7 @@ const MedicineCard = ({ medicine }) => {
         </div>
         <div className="flex flex-col items-end">
             <span className="text-3xl font-black text-[#059669] dark:text-[#34d399] drop-shadow-sm">
-              ${medicine.price.toFixed(2)}
+              ₹{medicine.price.toFixed(2)}
             </span>
             <span className="text-[10px] font-black text-gray-300 uppercase tracking-tighter">PER UNIT</span>
         </div>
