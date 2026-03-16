@@ -51,13 +51,18 @@ exports.getMedicines = async (req, res) => {
 // @access  Private/Pharmacy
 exports.createMedicine = async (req, res) => {
   try {
-    const { name, stock, price, description } = req.body;
+    const { name, stock, price, description, brandName, category, composition, manufacturer, expiryDate } = req.body;
 
     const medicine = await Medicine.create({
       name,
       stock: Number(stock),
       price: Number(price),
       description,
+      brandName,
+      category,
+      composition,
+      manufacturer,
+      expiryDate,
       pharmacyId: req.user.id
     });
 

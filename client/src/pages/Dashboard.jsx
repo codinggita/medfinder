@@ -25,6 +25,10 @@ const Dashboard = () => {
       navigate('/login');
     } else if (user.role === 'pharmacy') {
       fetchMyMedicines();
+      // Auto-open modal if on /dashboard/add
+      if (window.location.pathname === '/dashboard/add') {
+        setIsAddModalOpen(true);
+      }
     } else {
       setLoading(false);
     }
@@ -74,34 +78,38 @@ const Dashboard = () => {
   };
 
   if (loading) return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="flex flex-col items-center gap-4">
-        <div className="w-12 h-12 border-4 border-[#1E7F5C] border-t-transparent rounded-full animate-spin"></div>
-        <p className="font-black text-xs uppercase tracking-[0.25em] text-[#1E7F5C]">Syncing Data...</p>
+    <div className="flex items-center justify-center min-h-screen bg-emerald-50 dark:bg-[#022C22]">
+      <div className="flex flex-col items-center gap-6">
+        <div className="w-16 h-16 border-8 border-emerald-600 border-t-transparent rounded-full animate-spin shadow-xl"></div>
+        <p className="font-black text-xs uppercase tracking-[0.4em] text-emerald-800 dark:text-emerald-400">Syncing Intelligence...</p>
       </div>
     </div>
   );
 
   if (user?.role === 'user') {
     return (
-      <div className="p-10 bg-gray-50 min-h-screen flex items-center justify-center">
-        <div className="bg-white p-12 rounded-[3rem] shadow-xl border border-gray-100 max-w-2xl text-center space-y-8">
-           <div className="w-24 h-24 bg-emerald-50 rounded-full flex items-center justify-center mx-auto ring-8 ring-emerald-50 transition-transform hover:scale-110 duration-500">
-              <svg className="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="p-10 bg-[#F0FDF4] dark:bg-[#022C22] min-h-screen flex items-center justify-center">
+        <div className="bg-white dark:bg-[#064E3B] p-16 rounded-[4rem] shadow-2xl border border-white/20 max-w-2xl text-center space-y-10 relative overflow-hidden group">
+           <div className="absolute -right-20 -top-20 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all duration-1000"></div>
+           
+           <div className="w-28 h-28 bg-emerald-50 dark:bg-emerald-400/10 rounded-full flex items-center justify-center mx-auto ring-[1rem] ring-emerald-50 dark:ring-emerald-400/5 transition-transform hover:rotate-12 duration-700">
+              <svg className="w-12 h-12 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
            </div>
-           <div className="space-y-4">
-              <h2 className="text-4xl font-black text-gray-800 tracking-tighter">Welcome back, {user.name}</h2>
-              <p className="text-gray-400 font-bold tracking-wide leading-relaxed">
-                Connect with thousands of pharmacies and find the medication you need in seconds. Search, compare, and get your health back on track.
+           
+           <div className="space-y-4 relative z-10">
+              <h2 className="text-5xl font-black text-gray-900 dark:text-white tracking-tighter leading-tight">Welcome Area</h2>
+              <p className="text-gray-500 dark:text-emerald-200/60 font-bold text-lg leading-relaxed">
+                Connect with local pharmacies and find your medication instantly. Experience healthcare at the speed of thought.
               </p>
            </div>
+           
            <button 
              onClick={() => navigate('/search')}
-             className="px-12 py-5 bg-[#1E7F5C] text-white rounded-[2rem] font-black text-xs uppercase tracking-[0.25em] hover:bg-[#16654a] transition-all shadow-2xl shadow-emerald-900/10 active:scale-95"
+             className="px-14 py-6 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-[2.5rem] font-black text-[10px] uppercase tracking-[0.3em] hover:shadow-[0_20px_40px_rgba(5,150,105,0.3)] transition-all shadow-xl active:scale-95 relative z-10"
            >
-             Start Finding Medicine
+             Initialize Search
            </button>
         </div>
       </div>
@@ -109,26 +117,34 @@ const Dashboard = () => {
   }
 
   const stockStats = {
-     total: medicines.length * 10, // Mocking scaled numbers for UI
-     available: medicines.filter(m => m.stock > 10).length * 10,
-     low: medicines.filter(m => m.stock <= 10 && m.stock > 0).length * 10,
-     out: medicines.filter(m => m.stock === 0).length * 10
+     total: medicines.length,
+     available: medicines.filter(m => m.stock > 10).length,
+     low: medicines.filter(m => m.stock <= 10 && m.stock > 0).length,
+     out: medicines.filter(m => m.stock === 0).length
   };
 
   return (
-    <div className="flex bg-[#F8FAF9] min-h-screen">
+    <div className="flex bg-[#F0FDF4] dark:bg-[#021A15] min-h-screen transition-colors duration-700">
       <DashboardSidebar logout={logout} />
       
-      <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <main className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+        {/* Decorative Background Blob */}
+        <div className="absolute top-0 right-0 w-[50rem] h-[50rem] bg-emerald-200/20 dark:bg-emerald-500/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
         <DashboardHeader pharmacyName={user.name} />
         
-        <div className="flex-1 p-10 space-y-10 overflow-y-auto">
+        <div className="flex-1 p-14 space-y-14 overflow-y-auto custom-scrollbar relative z-10">
+          <div className="space-y-2">
+            <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter leading-none">Operations Hub</h1>
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 dark:text-emerald-500/50">Real-time Inventory Monitoring</p>
+          </div>
+
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
-            <StatCard title="Total Medicines" value={stockStats.total.toLocaleString()} type="total" />
-            <StatCard title="Available" value={stockStats.available.toLocaleString()} type="available" />
-            <StatCard title="Low Stock" value={stockStats.low.toLocaleString()} type="low" />
-            <StatCard title="Out of Stock" value={stockStats.out.toLocaleString()} type="out" />
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
+            <StatCard title="Global Catalog" value={stockStats.total} type="total" />
+            <StatCard title="Optimal Stock" value={stockStats.available} type="available" />
+            <StatCard title="Depleted" value={stockStats.low} type="low" />
+            <StatCard title="Zero Balance" value={stockStats.out} type="out" />
           </div>
 
           {/* Table Container */}

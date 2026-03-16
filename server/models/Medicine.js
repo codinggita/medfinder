@@ -21,6 +21,30 @@ const medicineSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  brandName: {
+    type: String,
+    required: true,
+    default: ''
+  },
+  category: {
+    type: String,
+    enum: ['Tablet', 'Capsule', 'Syrup', 'Injection', 'Cream'],
+    required: true
+  },
+  composition: {
+    type: String,
+    required: true,
+    default: ''
+  },
+  manufacturer: {
+    type: String,
+    required: true,
+    default: ''
+  },
+  expiryDate: {
+    type: Date,
+    required: true
+  },
   description: {
     type: String,
     default: ''

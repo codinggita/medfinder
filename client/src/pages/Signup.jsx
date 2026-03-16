@@ -32,7 +32,11 @@ const Signup = () => {
       });
       
       login(data);
-      navigate('/dashboard');
+      if (data.role === 'pharmacy') {
+        navigate('/dashboard');
+      } else {
+        navigate('/');
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Signup failed');
     }
