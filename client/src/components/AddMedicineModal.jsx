@@ -6,8 +6,8 @@ const AddMedicineModal = ({ isOpen, onClose, onSubmit, name, setName, stock, set
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
       <div className="absolute inset-0 bg-emerald-950/40 dark:bg-[#020617]/60 backdrop-blur-md transition-all sm:backdrop-blur-xl" onClick={onClose}></div>
-      <div className="bg-white dark:bg-gray-900 rounded-[3rem] w-full max-w-lg p-12 shadow-[0_50px_100px_rgba(0,0,0,0.2)] dark:shadow-[0_50px_100px_rgba(0,0,0,0.5)] relative animate-in fade-in zoom-in duration-500 border border-gray-100 dark:border-gray-800">
-        <button 
+      <div className="bg-white dark:bg-gray-900 rounded-[3rem] w-full max-w-lg p-12 med-shadow-premium relative animate-in fade-in zoom-in duration-500 border border-gray-100 dark:border-gray-800">
+        <button
           onClick={onClose}
           className="absolute top-8 right-8 p-3 bg-gray-50 dark:bg-gray-800 rounded-2xl text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-750 transition-all"
         >
