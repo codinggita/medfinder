@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import api from "../api/config";
 import MedicineCard from "../components/MedicineCard";
 import LuxeDropdown from "../components/LuxeDropdown";
 
@@ -35,7 +35,7 @@ const Search = () => {
   const fetchMedicines = async (keyword, currentPage, sortBy) => {
     setLoading(true);
     try {
-      const { data } = await axios.get('http://localhost:5000/api/medicines', {
+      const { data } = await api.get('/medicines', {
         params: { keyword, page: currentPage, limit: 6, sort: sortBy }
       });
       setMedicines(data.medicines);
