@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/config';
 import { AuthContext } from '../context/AuthContext';
 
 const STATUS_STEPS = [
@@ -129,7 +129,7 @@ const MyOrders = () => {
 
     const fetchOrders = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/orders/myorders', {
+        const { data } = await api.get('/orders/myorders', {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setOrders(data);
