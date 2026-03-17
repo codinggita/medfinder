@@ -21,7 +21,7 @@ const Home = () => {
         style={{ backgroundImage: `url(${homePageBg})` }}
       >
         <div className="absolute inset-0 bg-white/20 dark:bg-black/10"></div>
-        
+
         {/* Hero Content */}
         <div className="relative z-10 text-center max-w-4xl mx-auto w-full">
           <h1 className="text-4xl md:text-6xl font-extrabold text-[#064e3b] dark:text-emerald-400 mb-6 tracking-tight leading-tight">
@@ -30,7 +30,7 @@ const Home = () => {
           <p className="text-gray-700 dark:text-gray-300 text-xl md:text-2xl mb-12 font-medium max-w-2xl mx-auto">
             Find the medicines you need at pharmacies near you, instantly.
           </p>
-          
+
           <form onSubmit={handleSearch} className="flex items-center bg-white dark:bg-gray-800 p-2.5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.1)] max-w-3xl mx-auto border border-gray-100 dark:border-gray-700 relative z-20 hover:shadow-2xl transition-all duration-300">
             <div className="pl-6 text-[#059669]">
               <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -59,14 +59,14 @@ const Home = () => {
               <h2 className="text-3xl md:text-5xl font-extrabold text-gray-800 dark:text-gray-100 mb-4">Popular Medicines</h2>
               <p className="text-gray-500 dark:text-gray-400 text-xl">Quickly find the most searched healthcare products.</p>
             </div>
-            <button 
+            <button
               onClick={() => navigate('/search')}
               className="hidden md:flex items-center gap-2 text-[#059669] dark:text-[#34d399] font-bold text-lg hover:gap-4 transition-all"
             >
               View All Medicines <span>→</span>
             </button>
           </div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { name: 'Paracetamol', desc: 'Pain & Fever', color: 'emerald' },
@@ -74,13 +74,13 @@ const Home = () => {
               { name: 'Crocin', desc: 'Cold & Flu', color: 'pink' },
               { name: 'Aspirin', desc: 'Pain Reliever', color: 'orange' }
             ].map((med, idx) => (
-              <div 
+              <div
                 key={idx}
                 onClick={() => navigate(`/search?keyword=${med.name}`)}
                 className="bg-[#fcfdfc] dark:bg-gray-800 border-2 border-emerald-50 dark:border-gray-700/50 rounded-[40px] p-10 flex flex-col items-center text-center shadow-sm hover:shadow-2xl hover:-translate-y-3 group cursor-pointer transition-all duration-500"
               >
                 <div className="w-24 h-24 bg-emerald-50 dark:bg-emerald-950/40 rounded-full flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-inner">
-                   <svg className="w-12 h-12 text-[#059669] dark:text-[#34d399]" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-12 h-12 text-[#059669] dark:text-[#34d399]" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M7 4V2h10v2h2v4h-2v14H7V8H5V4h2zm2-2v2h6V2H9zm8 6H7v12h10V8zm-6 2h2v2h2v2h-2v2h-2v-2H9v-2h2v-2z" />
                   </svg>
                 </div>
@@ -106,27 +106,27 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
-              { 
-                title: 'Real-time Stock', 
-                desc: 'Our unique algorithm syncs with local store data to show you exactly what is in stock.', 
+              {
+                title: 'Real-time Stock',
+                desc: 'Our unique algorithm syncs with local store data to show you exactly what is in stock.',
                 icon: (
                   <svg className="w-12 h-12 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 )
               },
-              { 
-                title: 'Price Alerts', 
-                desc: 'Find the lowest prices and get notified when your essential meds go on sale.', 
+              {
+                title: 'Price Alerts',
+                desc: 'Find the lowest prices and get notified when your essential meds go on sale.',
                 icon: (
                   <svg className="w-12 h-12 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3 1.343 3 3-1.343 3-3 3m0-12c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3m0-2v2m0 16v2" />
                   </svg>
                 )
               },
-              { 
-                title: 'Verified Only', 
-                desc: 'Safety first. Every pharmacy on our platform is 100% certified and vetted.', 
+              {
+                title: 'Verified Only',
+                desc: 'Safety first. Every pharmacy on our platform is 100% certified and vetted.',
                 icon: (
                   <svg className="w-12 h-12 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -182,7 +182,7 @@ const Home = () => {
           </h3>
           <div className="flex items-center justify-center gap-4">
             <div className="w-16 h-16 rounded-full bg-emerald-100 overflow-hidden">
-               <img src="https://ui-avatars.com/api/?name=Sarah+Jenkins&background=059669&color=fff" alt="User" />
+              <img src="https://ui-avatars.com/api/?name=Sarah+Jenkins&background=059669&color=fff" alt="User" />
             </div>
             <div className="text-left">
               <div className="font-bold text-xl text-gray-900 dark:text-white">Sarah Jenkins</div>
@@ -196,7 +196,7 @@ const Home = () => {
       <section className="bg-gray-50 dark:bg-gray-950 p-12 md:p-24 rounded-[60px] m-4 md:m-8 overflow-hidden relative">
         <div className="relative z-10 flex flex-col items-center text-center">
           <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-8">Ready to find your meds?</h2>
-          <button 
+          <button
             onClick={() => navigate('/search')}
             className="bg-[#059669] text-white px-16 py-6 rounded-full font-black text-2xl hover:scale-105 hover:bg-[#047857] transition-all shadow-2xl"
           >
