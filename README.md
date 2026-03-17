@@ -1,142 +1,81 @@
 # MedFinder 💊  
-### Full Stack Hackathon Project
+### Full Stack Healthcare Solution
 
-## 📌 Project Description
-MedFinder is a full-stack web application developed as part of the **Full Stack Hackathon Event**. The project addresses a real-world healthcare problem where people struggle to find the availability of medicines in nearby pharmacies. Often, patients or their family members must visit multiple medical stores to locate a required medicine, which wastes time and can delay treatment during emergencies.
+MedFinder is a professional full-stack web application designed to bridge the gap between patients and pharmacies. It provides a real-time platform for searching medicine availability, browsing local pharmacy inventories, and managing pharmacy stocks through a dedicated dashboard.
 
-MedFinder provides a centralized digital platform where users can search for a medicine and instantly view nearby pharmacies where the medicine is available. Pharmacy owners can update their inventory through a dashboard, ensuring users always receive accurate and up-to-date stock information.
-
-The project demonstrates a complete full-stack solution using modern web technologies.
-
----
-
-## 🎯 Event Objective
-This project was built to meet the goals of the **Full Stack Hackathon Event**, which encourages participants to:
-
-- Identify a real-world problem  
-- Design and build a complete full-stack solution  
-- Use modern web technologies to solve practical problems  
+## 🚀 Live Demo
+- **Frontend (Netlify):** [https://medfinder-by-devisingh.netlify.app](https://medfinder-by-devisingh.netlify.app)
+- **Backend API (Render):** [https://medfinder-api.onrender.com/](https://medfinder-api.onrender.com/)
 
 ---
 
-## ❗ Problem Statement
-Many people face difficulty finding specific medicines when they urgently need them. Patients often visit several pharmacies before locating the required medication. This process is inefficient, time-consuming, and stressful, especially in medical emergencies.
+## 📌 Project Overview
+Finding specific medicines in local pharmacies can be a stressful and time-consuming process, especially during emergencies. MedFinder addresses this by offering a centralized digital directory where:
+- **Users** can instantly find which nearby stores have their required medication.
+- **Pharmacies** can digitize their inventory and reach more patients.
 
-Currently, there is no simple platform that allows users to check medicine availability across nearby pharmacies in one place.
+## ✨ Key Features
 
----
+### 🔍 Advanced Medicine Search
+- **Instant Search:** Find medicines by name, category, or brand.
+- **Debounced Input:** Optimized performance for a smooth searching experience.
+- **Smart Filtering:** Sort by price, availability, or relevance.
 
-## 💡 Proposed Solution
-MedFinder solves this problem by providing a web platform where users can:
+### 🏥 Pharmacy Ecosystem
+- **Verified Pharmacies:** Browse a curated list of certified local healthcare providers.
+- **Live Inventory:** View the real-time stock of specific pharmacies.
+- **Direct Navigation:** Seamlessly move from pharmacy listings to their specific medicine catalogs.
 
-- Search for a specific medicine  
-- View nearby pharmacies where the medicine is available  
-- Check medicine stock status  
-- Save time and reduce unnecessary travel  
+### 🛠️ Pharmacy Dashboard (B2B)
+- **Inventory Management:** Full CRUD operations for medicines (Add, Edit, Delete).
+- **Stock Tracking:** Monitor and update availability levels (In Stock, Low Stock, Out of Stock).
+- **Business Insights:** Visualize pharmacy performance and inventory statistics.
 
-Pharmacy owners can manage their medicine inventory through a dashboard to ensure accurate stock availability.
-
----
-
-## 🚀 Key Features
-
-### 🔎 Medicine Search
-Users can search medicines by name and quickly see which pharmacies have them in stock.
-
-### 📍 Nearby Pharmacy Listing
-The platform displays nearby pharmacies along with important information such as:
-- Pharmacy name  
-- Location  
-- Availability status  
-
-### 📦 Stock Status
-Each medicine listing displays its availability:
-- Available  
-- Out of Stock  
-- Low Stock  
-
-### 🏪 Pharmacy Dashboard
-Pharmacy owners can manage medicine inventory by:
-- Adding new medicines  
-- Updating stock levels  
-- Removing medicines  
-
-### 🔐 Authentication System
-The platform includes authentication features:
-- User signup  
-- User login  
-- Password validation  
-- Protected routes  
-
-### 🌙 Theme Support
-Users can switch between:
-- Dark mode  
-- Light mode  
-
-The selected theme is saved for future visits.
-
-### 🔎 Search, Filtering & Sorting
-Users can:
-- Search medicines  
-- Filter results  
-- Sort pharmacy listings  
-
-### ⚡ Debounced Search
-Debouncing is implemented to optimize performance during search operations and prevent excessive API requests.
-
-### 📄 Pagination
-Pagination is implemented for medicine listings using backend pagination.
-
-### 🔄 CRUD Operations
-The system supports full database operations:
-
-- Create medicines  
-- Read medicine data  
-- Update stock  
-- Delete medicines  
-
-### 🔗 API Integration
-REST APIs handle all backend operations with proper loading states.
+### 🛍️ User Experience
+- **Secure Authentication:** JWT-based login and signup for users and pharmacy owners.
+- **Modern UI/UX:** Clean, professional interface with a fresh green healthcare theme.
+- **Dark Mode:** Full support for both light and dark themes with persistent storage.
+- **Responsive Design:** Optimized for mobile, tablet, and desktop views.
+- **Order Tracking:** Simulated order placement and real-time status tracking for a complete commerce flow.
 
 ---
+
+## 🛠️ Technical Stack
+- **Frontend:** React.js, Tailwind CSS, Axios, Lucide Icons, Recharts (for Dashboard analytics).
+- **Backend:** Node.js, Express.js.
+- **Database:** MongoDB Atlas (Cloud-hosted).
+- **State Management:** React Context API (Auth, Theme, Cart).
+- **Deployment:** Render (Backend), Netlify (Frontend).
 
 ## 📂 Project Structure
-
 ```text
 medfinder
 │
-├── client
-│   ├── components
-│   ├── pages
-│   ├── context
-│   ├── hooks
-│   └── utils
+├── client/          # React Frontend (Vite)
+│   ├── src/
+│   │   ├── api/     # Centralized API Configuration
+│   │   ├── components/
+│   │   ├── context/ # Auth, Theme, Cart states
+│   │   └── pages/   # Application Views
 │
-├── server
-│   ├── controllers
-│   ├── models
-│   ├── routes
-│   ├── middleware
-│   └── config
+├── server/          # Node/Express Backend
+│   ├── models/      # Mongoose Schemas
+│   ├── routes/      # API Endpoints
+│   ├── middleware/  # Auth & Security
+│   └── server.js    # Entry point
 ```
 
-
 ---
 
-## 🌍 Real World Impact
-MedFinder improves access to essential medicines by helping users quickly locate pharmacies that have the required medication in stock. The platform reduces unnecessary travel, saves time, and supports better healthcare accessibility.
+## 🧑‍💻 Development
+This project was developed with a focus on **clean code**, **environment-aware configuration**, and **production readiness**. It includes production-grade features like:
+- **CORS Management:** Dynamic origin validation for secure cross-domain communication.
+- **Centralized API Logic:** Abstracted axios instances for easy environment switching.
+- **SPA Routing Fixes:** Netlify `_redirects` configuration for deep-linking support.
+
+## 👨‍💻 Author
+**Devisingh Rajput**  
+*Full Stack Developer*
 
 ---
-
-## 🔮 Future Improvements
-Possible future enhancements include:
-
-- Real-time pharmacy inventory integration  
-- Map-based pharmacy location search  
-- Medicine reservation system  
-- Notification alerts for medicine availability  
-
----
-
-## 👨‍💻 Contributor
-Developed as a **Full Stack Hackathon Project** demonstrating practical application of modern web technologies.
+© 2026 MedFinder. All rights reserved.

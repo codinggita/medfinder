@@ -3,25 +3,34 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { ShoppingCart, Zap, Clock, ShieldCheck, Tag, Box } from "lucide-react";
 
-const MedicineCard = ({ medicine }) => {
+const MedicineCard = ({ medicine, onReserve }) => {
   const inStock = medicine.stock > 0;
   const lowStock = medicine.stock > 0 && medicine.stock <= 5;
-  const { addToCart } = useCart();
+  const { addToCart, cartItems } = useCart();
   const navigate = useNavigate();
+
+  const isInCart = cartItems?.some(item => item._id === medicine._id) || false;
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
+    if (!inStock) return;
     addToCart(medicine, 1);
   };
 
   const handleBuyNow = (e) => {
     e.stopPropagation();
-    addToCart(medicine, 1);
+    if (!inStock) return;
+    if (!isInCart) addToCart(medicine, 1);
     navigate('/checkout');
   };
 
+  const handleReserve = (e) => {
+    e.stopPropagation();
+    if (onReserve) onReserve(medicine);
+  };
+
   return (
-    <div 
+    <div
       onClick={() => navigate(`/pharmacy/${medicine.pharmacyId?._id}/${encodeURIComponent(medicine.pharmacyId?.name || '')}`)}
       className="group relative bg-white dark:bg-gray-800/40 rounded-[2.5rem] p-6 shadow-xl border-2 border-gray-100 dark:border-gray-700/50 hover:shadow-2xl hover:-translate-y-2 hover:border-emerald-500/30 transition-all duration-500 cursor-pointer flex flex-col h-full overflow-hidden"
     >
@@ -62,7 +71,7 @@ const MedicineCard = ({ medicine }) => {
             {medicine.brandName}
           </p>
         )}
-        
+
         <div className="flex items-center gap-2.5 p-2 bg-gray-50/50 dark:bg-gray-900/40 rounded-2xl border border-gray-100 dark:border-gray-800/50 w-fit group/pharmacy hover:border-emerald-500/30 transition-colors">
           <div className="w-8 h-8 bg-white dark:bg-gray-800 rounded-xl flex items-center justify-center border border-gray-100 dark:border-gray-700 shadow-sm">
             <ShieldCheck className="w-4 h-4 text-emerald-500" />
@@ -91,7 +100,7 @@ const MedicineCard = ({ medicine }) => {
               <span className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">₹{medicine.price.toFixed(2)}</span>
             </div>
           </div>
-          
+
           <div className={`px-4 py-2 rounded-2xl border flex items-center gap-2 shadow-sm ${inStock ? 'bg-emerald-50 border-emerald-100 dark:bg-emerald-950/40 dark:border-emerald-900/50' : 'bg-rose-50 border-rose-100 dark:bg-rose-950/30 dark:border-rose-900/50'}`}>
             <div className={`w-2 h-2 rounded-full ${inStock ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse' : 'bg-rose-500'}`} />
             <span className={`text-[10px] font-black uppercase tracking-widest ${inStock ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
@@ -105,18 +114,17 @@ const MedicineCard = ({ medicine }) => {
           <button
             onClick={handleAddToCart}
             disabled={!inStock}
-            className={`flex-1 group/btn h-14 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] border-2 transition-all duration-300 relative overflow-hidden ${
-              inStock
-                ? 'border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white'
+            className={`flex-1 group/btn h-14 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] border-2 transition-all duration-300 relative overflow-hidden ${inStock
+                ? (isInCart ? 'bg-emerald-600 text-white border-emerald-600' : 'border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white')
                 : 'border-gray-200 text-gray-300 cursor-not-allowed'
-            }`}
+              }`}
           >
             <div className="flex items-center justify-center gap-2 relative z-10">
-              <ShoppingCart className="w-3.5 h-3.5" />
-              <span>Add Items</span>
+              {isInCart ? <ShieldCheck className="w-3.5 h-3.5" /> : <ShoppingCart className="w-3.5 h-3.5" />}
+              <span>{isInCart ? 'In Cart' : 'Add Items'}</span>
             </div>
           </button>
-          
+
           {inStock && (
             <button
               onClick={handleBuyNow}
@@ -127,6 +135,19 @@ const MedicineCard = ({ medicine }) => {
             </button>
           )}
         </div>
+
+        {/* Reservation Button */}
+        <button
+          onClick={handleReserve}
+          disabled={!inStock}
+          className={`w-full py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all border-2 flex items-center justify-center gap-2 ${inStock
+              ? 'text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-800/50 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:border-emerald-500/30'
+              : 'text-gray-200 border-transparent cursor-not-allowed'
+            }`}
+        >
+          <Clock className="w-3.5 h-3.5" />
+          <span>⚡ Order & Pickup</span>
+        </button>
       </div>
     </div>
   );

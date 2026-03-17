@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/config'; // Removed direct axios import, using the configured api instance
 import { AuthContext } from '../context/AuthContext';
 import DashboardSidebar from '../components/DashboardSidebar';
 import LuxeDropdown from '../components/LuxeDropdown';
@@ -66,7 +66,7 @@ const AddMedicine = () => {
         setLoading(true);
         try {
             const config = { headers: { Authorization: `Bearer ${user.token}` } };
-            await axios.post('http://localhost:5000/api/medicines', formData, config);
+            await api.post('/medicines', formData, config);
             setSuccess(true);
             setTimeout(() => {
                 setSuccess(false);

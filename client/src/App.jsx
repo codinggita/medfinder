@@ -17,6 +17,7 @@ import OrderSuccess from "./pages/OrderSuccess";
 import MyOrders from "./pages/MyOrders";
 import PharmacyMedicines from "./pages/PharmacyMedicines";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { CartProvider } from "./context/CartContext";
@@ -61,6 +62,7 @@ function App() {
                   <Route path="/profile/orders" element={<MyOrders />} />
                   <Route path="/pharmacy/:pharmacyId/:pharmacyName" element={<PharmacyMedicines />} />
                   <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
                 </Routes>
               </Layout>
             </div>
