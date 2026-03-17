@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Search from "./pages/Search";
 import Pharmacies from "./pages/Pharmacies";
+import Reports from "./pages/Reports";
 import ProfilePage from "./pages/ProfilePage";
 import AddMedicine from "./pages/AddMedicine";
 import { AuthProvider } from "./context/AuthContext";
@@ -15,7 +16,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 const Layout = ({ children }) => {
   const location = useLocation();
   // Don't show Navbar on login, signup, and dashboard pages
-  const hideNavbarRoutes = ["/login", "/signup", "/dashboard"];
+  const hideNavbarRoutes = ["/login", "/signup", "/dashboard", "/reports"];
   const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
 
   return (
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/dashboard/add" element={<Dashboard />} />
                 <Route path="/dashboard/inventory" element={<Dashboard />} />
                 <Route path="/medicines/add" element={<AddMedicine />} />
+                <Route path="/reports" element={<Reports />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/pharmacies" element={<Pharmacies />} />
                 <Route path="/profile" element={<ProfilePage />} />

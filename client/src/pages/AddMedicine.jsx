@@ -3,6 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import DashboardSidebar from '../components/DashboardSidebar';
+import LuxeDropdown from '../components/LuxeDropdown';
+
+const medicineCategories = [
+    { id: 'Tablet', label: 'Tablet', icon: '💊' },
+    { id: 'Capsule', label: 'Capsule', icon: '💊' },
+    { id: 'Syrup', label: 'Syrup', icon: '🧪' },
+    { id: 'Injection', label: 'Injection', icon: '💉' },
+    { id: 'Cream', label: 'Cream', icon: '🧴' },
+];
 
 const AddMedicine = () => {
     const { user, logout } = useContext(AuthContext);
@@ -71,7 +80,7 @@ const AddMedicine = () => {
     };
 
     return (
-        <div className="flex bg-[#F1FAF7] dark:bg-[#021A15] min-h-screen font-['Inter'] relative overflow-hidden">
+        <div className="flex bg-[#F1FAF7] dark:bg-[#021A15] min-h-screen relative overflow-hidden">
             {/* Soft Ambient Background Blobs */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none"></div>
             <div className="absolute bottom-0 left-80 w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none"></div>
@@ -165,17 +174,13 @@ const AddMedicine = () => {
                             <div className="space-y-2">
                                 <label className="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1">Category</label>
                                 <div className="relative">
-                                    <select 
-                                        name="category" required 
-                                        className="w-full px-5 py-4 bg-gray-50/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl text-sm outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all dark:text-white appearance-none cursor-pointer"
-                                        value={formData.category} onChange={handleChange}
-                                    >
-                                        <option value="" disabled className="dark:bg-[#022C22]">Select Category</option>
-                                        {categories.map(c => <option key={c} value={c} className="dark:bg-[#022C22]">{c}</option>)}
-                                    </select>
-                                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                                    </div>
+                                    <LuxeDropdown 
+                                        options={medicineCategories}
+                                        selected={formData.category} 
+                                        onChange={(val) => setFormData({ ...formData, category: val })}
+                                        placeholder="Select Category"
+                                    />
+
                                 </div>
                             </div>
 
@@ -212,7 +217,7 @@ const AddMedicine = () => {
                             <div className="space-y-2">
                                 <label className="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1">Price per Unit</label>
                                 <div className="relative">
-                                    <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">$</div>
+                                    <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">₹</div>
                                     <input 
                                         type="number" step="0.01" name="price" required placeholder="0.00" 
                                         className="w-full pl-10 pr-5 py-4 bg-gray-50/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl text-sm font-bold outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all dark:text-white"

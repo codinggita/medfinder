@@ -50,7 +50,7 @@ const AddMedicineModal = ({ isOpen, onClose, onSubmit, name, setName, stock, set
             <div className="space-y-2">
               <label className="text-xs font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-600 ml-1">Price per Unit</label>
               <div className="relative">
-                <span className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-600 font-black">$</span>
+                <span className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-600 font-black">₹</span>
                 <input
                   type="number"
                   min="0"

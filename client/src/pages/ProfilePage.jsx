@@ -51,36 +51,55 @@ const ProfilePage = () => {
           </div>
 
           <form onSubmit={handleUpdate} className="space-y-8">
-            <div className="space-y-2">
-              <label className="text-sm font-black text-gray-400 dark:text-gray-500 uppercase ml-6 tracking-widest">Full Name</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-8 py-5 bg-white dark:bg-gray-900 border-2 border-emerald-50 dark:border-gray-700/50 rounded-full text-gray-800 dark:text-white focus:outline-none focus:border-[#059669] transition-all font-bold shadow-inner"
-              />
+            <div className="space-y-4">
+              <label className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase ml-6 tracking-[0.25em]">Full Name</label>
+              <div className="relative group">
+                <div className="absolute left-6 top-1/2 -translate-y-1/2 text-[#059669]/50 group-focus-within:text-[#059669] transition-colors">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full pl-16 pr-8 py-5 bg-white dark:bg-gray-900 border-2 border-emerald-50 dark:border-gray-700/50 rounded-full text-gray-800 dark:text-white focus:outline-none focus:border-[#059669] transition-all font-bold shadow-inner"
+                />
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-black text-gray-400 dark:text-gray-500 uppercase ml-6 tracking-widest">Email Address</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-8 py-5 bg-white dark:bg-gray-900 border-2 border-emerald-50 dark:border-gray-700/50 rounded-full text-gray-800 dark:text-white focus:outline-none focus:border-[#059669] transition-all font-bold shadow-inner"
-              />
+            <div className="space-y-4">
+              <label className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase ml-6 tracking-[0.25em]">Email Address</label>
+              <div className="relative group">
+                <div className="absolute left-6 top-1/2 -translate-y-1/2 text-[#059669]/50 group-focus-within:text-[#059669] transition-colors">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full pl-16 pr-8 py-5 bg-white dark:bg-gray-900 border-2 border-emerald-50 dark:border-gray-700/50 rounded-full text-gray-800 dark:text-white focus:outline-none focus:border-[#059669] transition-all font-bold shadow-inner"
+                />
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-black text-gray-400 dark:text-gray-500 uppercase ml-6 tracking-widest">Account Password</label>
-              <div className="relative">
+            <div className="space-y-4">
+              <label className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase ml-6 tracking-[0.25em]">Account Password</label>
+              <div className="relative group">
+                <div className="absolute left-6 top-1/2 -translate-y-1/2 text-[#059669]/50 group-focus-within:text-[#059669] transition-colors">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-8 py-5 bg-white dark:bg-gray-900 border-2 border-emerald-50 dark:border-gray-700/50 rounded-full text-gray-800 dark:text-white focus:outline-none focus:border-[#059669] transition-all font-bold shadow-inner"
+                  className="w-full pl-16 pr-8 py-5 bg-white dark:bg-gray-900 border-2 border-emerald-50 dark:border-gray-700/50 rounded-full text-gray-800 dark:text-white focus:outline-none focus:border-[#059669] transition-all font-bold shadow-inner"
                 />
-                <button type="button" className="absolute right-6 top-1/2 -translate-y-1/2 text-[#059669] font-bold text-sm tracking-widest hover:text-[#047857]">REVEAL</button>
+                <button type="button" className="absolute right-6 top-1/2 -translate-y-1/2 text-[#059669] font-bold text-xs tracking-widest hover:text-[#047857] px-4 py-2 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">REVEAL</button>
               </div>
             </div>
 
@@ -106,7 +125,15 @@ const ProfilePage = () => {
         <div className="space-y-12">
           {/* Preferences Card */}
           <div className="bg-[#fcfdfc] dark:bg-gray-800/50 p-12 rounded-[50px] shadow-[0_30px_100px_rgba(0,0,0,0.04)] border border-emerald-50 dark:border-gray-700/50">
-            <h3 className="text-3xl font-black text-gray-900 dark:text-white mb-10">Account Preferences</h3>
+            <div className="flex items-center gap-4 mb-10">
+              <div className="p-3 bg-emerald-500/10 text-emerald-600 rounded-2xl">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <h3 className="text-3xl font-black text-gray-900 dark:text-white">Account Preferences</h3>
+            </div>
             <div className="space-y-8">
               <div className="flex items-center justify-between p-6 bg-white dark:bg-gray-900 rounded-[30px] shadow-sm">
                 <div>
@@ -146,7 +173,14 @@ const ProfilePage = () => {
           {/* Search History */}
           <div className="bg-emerald-50 dark:bg-emerald-950/20 p-12 rounded-[50px] border border-emerald-100/50 dark:border-emerald-800/30">
             <div className="flex justify-between items-center mb-10">
-              <h3 className="text-3xl font-black text-gray-900 dark:text-white">Recent Activity</h3>
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-white dark:bg-white/10 text-emerald-600 rounded-2xl shadow-sm">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-3xl font-black text-gray-900 dark:text-white">Recent Activity</h3>
+              </div>
               <button className="text-[#059669] dark:text-[#34d399] font-black text-xs tracking-widest uppercase hover:underline">Clear All</button>
             </div>
             <div className="space-y-4">

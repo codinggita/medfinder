@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import LuxeDropdown from './LuxeDropdown';
 
 const MedicineTable = ({ medicines, onDelete, onEdit, onAdd }) => {
+  const [viewFilter, setViewFilter] = useState('All Items');
+
   return (
     <div className="bg-white dark:bg-[#022C22]/40 backdrop-blur-sm rounded-[3rem] p-12 shadow-[0_30px_100px_rgba(0,0,0,0.04)] border border-gray-100 dark:border-white/5 flex flex-col gap-10 transition-all duration-500">
       {/* Table Header / Actions */}
@@ -31,16 +34,20 @@ const MedicineTable = ({ medicines, onDelete, onEdit, onAdd }) => {
         </div>
 
         <div className="flex items-center gap-4 self-end xl:self-auto">
-          <div className="flex items-center gap-2 px-6 py-4 bg-gray-50/50 dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/5">
-            <span className="text-[10px] font-black uppercase tracking-[0.15em] text-gray-400 dark:text-gray-500">View:</span>
-            <select className="bg-transparent border-none text-sm font-black text-gray-700 dark:text-gray-300 focus:ring-0 cursor-pointer p-0">
-              <option>All Items</option>
-              <option>In Stock</option>
-              <option>Low Stock</option>
-              <option>Critical</option>
-            </select>
-          </div>
+          <LuxeDropdown 
+             className="w-48"
+             options={[
+               { id: 'All Items', label: 'All Items', icon: '📦' },
+               { id: 'In Stock', label: 'In Stock', icon: '✅' },
+               { id: 'Low Stock', label: 'Low Stock', icon: '⚠️' },
+               { id: 'Critical', label: 'Critical', icon: '🚨' }
+             ]}
+             selected={viewFilter}
+             onChange={setViewFilter}
+             placeholder="View Filter"
+          />
         </div>
+
       </div>
 
       {/* Actual Table */}
@@ -83,7 +90,7 @@ const MedicineTable = ({ medicines, onDelete, onEdit, onAdd }) => {
                   </div>
                 </td>
                 <td className="px-8 py-7 bg-gray-50/30 dark:bg-white/5 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-500/10 transition-colors text-xl font-black text-emerald-600 dark:text-emerald-400 tracking-tighter">
-                  ${med.price?.toFixed(2)}
+                  ₹{med.price?.toFixed(2)}
                 </td>
                 <td className="px-8 py-7 bg-gray-50/30 dark:bg-white/5 rounded-r-[1.5rem] group-hover:bg-emerald-50 dark:group-hover:bg-emerald-500/10 transition-colors text-right">
                   <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-all scale-90 group-hover:scale-100">

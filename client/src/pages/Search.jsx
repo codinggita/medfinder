@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import MedicineCard from "../components/MedicineCard";
+import LuxeDropdown from "../components/LuxeDropdown";
+
+const sortOptions = [
+  { id: '', label: 'Relevance', icon: '🎯' },
+  { id: 'price', label: 'Price (Low)', icon: '💰' },
+  { id: 'stock', label: 'Availability', icon: '📦' },
+];
 
 const Search = () => {
   const [medicines, setMedicines] = useState([]);
@@ -97,20 +104,17 @@ const Search = () => {
         
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="w-full sm:w-56">
-            <select
-              className="w-full py-5 px-8 bg-white dark:bg-gray-900 border-2 border-emerald-50 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-lg font-bold focus:ring-4 focus:ring-emerald-500/10 focus:border-[#059669] outline-none cursor-pointer transition-all shadow-inner appearance-none"
-              style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23059669'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1.5rem center', backgroundSize: '1.5rem' }}
-              value={sort}
-              onChange={(e) => {
-                setSort(e.target.value);
+            <LuxeDropdown
+              options={sortOptions}
+              selected={sort}
+              onChange={(val) => {
+                setSort(val);
                 setPage(1);
               }}
-            >
-              <option value="">Sort: Relevance</option>
-              <option value="price">Sort: Price (Low)</option>
-              <option value="stock">Sort: Availability</option>
-            </select>
+              placeholder="Sort By"
+            />
           </div>
+
           
           <button 
             onClick={clearFilters}
