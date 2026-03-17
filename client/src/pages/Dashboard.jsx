@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api/config";
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell
@@ -45,7 +45,7 @@ const Dashboard = () => {
 
   const fetchMyMedicines = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/api/medicines?limit=100`);
+      const { data } = await api.get(`/medicines?limit=100`);
       const myMeds = data.medicines.filter(m => m.pharmacyId && m.pharmacyId._id === user._id);
       setMedicines(myMeds);
       setLoading(false);
@@ -59,7 +59,7 @@ const Dashboard = () => {
     if (window.confirm('Are you sure you want to delete this medicine?')) {
       try {
         const config = { headers: { Authorization: `Bearer ${user.token}` } };
-        await axios.delete(`http://localhost:5000/api/medicines/${id}`, config);
+        await api.delete(`/medicines/${id}`, config);
         setMedicines(medicines.filter(m => m._id !== id));
       } catch (error) {
         alert(error.response?.data?.message || 'Error deleting medicine');
