@@ -19,17 +19,18 @@ exports.getMedicines = async (req, res) => {
         }
       : {};
 
-    const count = await Medicine.countDocuments({ ...keyword });
-    
-    // Sorting logic
-    let sort = {};
-    if (req.query.sort === 'price') {
-      sort = { price: 1 };
-    } else if (req.query.sort === 'stock') {
-      sort = { stock: -1 };
-    }
+    // Filter by pharmacy if pharmacyId is provided
+    const pharmacyFilter = req.query.pharmacyId ? { pharmacyId: req.query.pharmacyId } : {};
 
-    const medicines = await Medicine.find({ ...keyword })
+    const filter = { ...keyword, ...pharmacyFilter };
+
+    const count = await Medicine.countDocuments(filter);
+
+    let sort = {};
+    if (req.query.sort === 'price') sort = { price: 1 };
+    else if (req.query.sort === 'stock') sort = { stock: -1 };
+
+    const medicines = await Medicine.find(filter)
       .populate({ path: 'pharmacyId', model: User, select: 'name email' })
       .sort(sort)
       .limit(limit)
@@ -45,6 +46,7 @@ exports.getMedicines = async (req, res) => {
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
 };
+
 
 // @desc    Create a new medicine
 // @route   POST /api/medicines

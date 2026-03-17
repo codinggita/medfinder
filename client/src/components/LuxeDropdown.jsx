@@ -1,20 +1,20 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { ChevronDown, Search, Check } from 'lucide-react';
 
-const LuxeDropdown = ({ 
-  options = [], 
-  selected, 
-  onChange, 
+const LuxeDropdown = ({
+  options = [],
+  selected,
+  onChange,
   placeholder = "Select Category",
-  className = "" 
+  className = ""
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const dropdownRef = useRef(null);
   const inputRef = useRef(null);
 
   const filteredOptions = useMemo(() => {
-    return options.filter(opt => 
+    return options.filter(opt =>
       opt.label.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [searchTerm, options]);
@@ -32,43 +32,10 @@ const LuxeDropdown = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Handle keyboard navigation
-  const handleKeyDown = (e) => {
-    if (!isOpen) {
-      if (e.key === 'Enter' || e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        setIsOpen(true);
-      }
-      return;
-    }
-
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        setHighlightedIndex(prev => (prev + 1) % (filteredOptions.length || 1));
-        break;
-      case 'ArrowUp':
-        e.preventDefault();
-        setHighlightedIndex(prev => (prev - 1 + (filteredOptions.length || 1)) % (filteredOptions.length || 1));
-        break;
-      case 'Enter':
-        e.preventDefault();
-        if (highlightedIndex >= 0 && filteredOptions[highlightedIndex]) {
-          handleSelect(filteredOptions[highlightedIndex]);
-        }
-        break;
-      case 'Escape':
-        setIsOpen(false);
-        break;
-      default:
-        break;
-    }
-  };
-
   const handleSelect = (option) => {
     onChange(option.id || option.label);
     setIsOpen(false);
     setSearchTerm('');
-    setHighlightedIndex(-1);
   };
 
   useEffect(() => {
@@ -78,80 +45,79 @@ const LuxeDropdown = ({
   }, [isOpen]);
 
   return (
-    <div className={`relative ${className}`} ref={dropdownRef} onKeyDown={handleKeyDown}>
+    <div className={`relative ${className}`} ref={dropdownRef}>
       {/* Dropdown Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full flex items-center justify-between px-6 py-4 bg-white dark:bg-white/5 border ${isOpen ? 'border-emerald-500 ring-4 ring-emerald-500/10' : 'border-gray-100 dark:border-white/5'} rounded-2xl text-left transition-all duration-300 hover:border-emerald-500/30 group shadow-sm hover:shadow-md`}
+        className={`
+          w-full flex items-center justify-between px-6 py-4 
+          bg-white dark:bg-gray-900 border-2 
+          ${isOpen ? 'border-emerald-500 shadow-lg shadow-emerald-500/10' : 'border-gray-100 dark:border-gray-700'} 
+          rounded-2xl text-left transition-all duration-300 group
+        `}
       >
         <div className="flex items-center gap-3">
           {selectedOption ? (
             <>
-              {selectedOption.icon && <span className="text-xl">{selectedOption.icon}</span>}
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-900 dark:text-white">
+              {selectedOption.icon && <span className="text-xl group-hover:scale-110 transition-transform">{selectedOption.icon}</span>}
+              <span className="text-xs font-black uppercase tracking-widest text-gray-900 dark:text-white">
                 {selectedOption.label}
               </span>
             </>
           ) : (
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 group-hover:text-emerald-600/50 transition-colors">
+            <span className="text-xs font-black uppercase tracking-widest text-gray-400 group-hover:text-emerald-500 transition-colors">
               {placeholder}
             </span>
           )}
         </div>
-        <div className={`transition-transform duration-300 pointer-events-none text-emerald-600 ${isOpen ? 'rotate-180' : ''}`}>
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
+        <ChevronDown className={`w-4 h-4 text-emerald-500 transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`} strokeWidth={3} />
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute z-[100] w-full mt-3 bg-white/95 dark:bg-[#064E3B]/95 backdrop-blur-xl border border-emerald-500/20 dark:border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(16,185,129,0.15)] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
+        <div className="
+          absolute z-[100] w-full mt-3 
+          bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl 
+          border-2 border-emerald-500/20 dark:border-emerald-500/10 
+          rounded-[2rem] shadow-[0_25px_70px_rgba(0,0,0,0.15)] 
+          overflow-hidden origin-top transition-all duration-300 animate-in fade-in zoom-in-95
+        ">
           
           {/* Search Input */}
-          <div className="p-3 border-b border-gray-100 dark:border-white/5">
+          <div className="p-4 border-b border-gray-100 dark:border-gray-800">
             <div className="relative">
               <input
                 ref={inputRef}
                 type="text"
                 value={searchTerm}
-                onChange={(e) => {
-                    setSearchTerm(e.target.value);
-                    setHighlightedIndex(0);
-                }}
-                placeholder="Search..."
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-black/20 rounded-xl text-xs font-bold outline-none focus:ring-2 focus:ring-emerald-500/20 dark:text-white placeholder:text-gray-400"
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Filter options..."
+                className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 rounded-xl text-xs font-bold outline-none focus:ring-2 focus:ring-emerald-500/20 dark:text-white placeholder:text-gray-500"
               />
-              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" strokeWidth={3} />
             </div>
           </div>
 
           {/* Options List */}
-          <div className="max-h-[250px] overflow-y-auto luxe-scrollbar p-2 space-y-1">
+          <div className="max-h-[300px] overflow-y-auto p-2 space-y-1 luxe-scrollbar">
             {filteredOptions.length > 0 ? (
               filteredOptions.map((option, index) => {
                 const isSelected = selected === option.id || selected === option.label;
-                const isHighlighted = highlightedIndex === index;
 
                 return (
                   <button
                     key={index}
                     type="button"
                     onClick={() => handleSelect(option)}
-                    onMouseEnter={() => setHighlightedIndex(index)}
-                    className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl transition-all duration-200 group/item ${
-                      isSelected 
-                        ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-900/20' 
-                        : isHighlighted 
-                          ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' 
-                          : 'text-gray-600 dark:text-gray-300 hover:bg-emerald-50/50 dark:hover:bg-white/5 hover:text-emerald-600'
-                    }`}
+                    className={`
+                      w-full flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl 
+                      transition-all duration-200 group/item
+                      ${isSelected 
+                        ? 'bg-emerald-600 text-white shadow-xl shadow-emerald-600/20' 
+                        : 'text-gray-600 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 hover:text-emerald-700 dark:hover:text-emerald-400'
+                      }
+                    `}
                   >
                     <div className="flex items-center gap-3">
                       {option.icon && (
@@ -164,27 +130,26 @@ const LuxeDropdown = ({
                       </span>
                     </div>
                     {isSelected && (
-                      <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center animate-in zoom-in duration-300">
-                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
-                        </svg>
+                      <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-white" strokeWidth={4} />
                       </div>
                     )}
                   </button>
                 );
               })
             ) : (
-              <div className="py-8 text-center">
-                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">No options found</p>
+              <div className="py-12 text-center">
+                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">No matches found</p>
               </div>
             )}
           </div>
         </div>
       )}
 
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .luxe-scrollbar::-webkit-scrollbar {
-          width: 4px;
+          width: 5px;
         }
         .luxe-scrollbar::-webkit-scrollbar-track {
           background: transparent;
