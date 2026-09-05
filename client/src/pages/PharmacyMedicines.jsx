@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/config';
 import MedicineCard from '../components/MedicineCard';
+import ReservationModal from '../components/ReservationModal';
 
 const PharmacyMedicines = () => {
   const { pharmacyId, pharmacyName } = useParams();
@@ -14,6 +15,8 @@ const PharmacyMedicines = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
+  const [selectedMedicine, setSelectedMedicine] = useState(null);
+  const [isReserveModalOpen, setIsReserveModalOpen] = useState(false);
   const decodedName = decodeURIComponent(pharmacyName || '');
 
   useEffect(() => {
@@ -24,7 +27,7 @@ const PharmacyMedicines = () => {
   const fetchMedicines = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('http://localhost:5000/api/medicines', {
+      const { data } = await api.get('/medicines', {
         params: { pharmacyId, keyword: search, sort, page, limit: 9 },
       });
       setMedicines(data.medicines);
@@ -42,6 +45,11 @@ const PharmacyMedicines = () => {
       setPage(p);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  };
+
+  const handleReserve = (medicine) => {
+    setSelectedMedicine(medicine);
+    setIsReserveModalOpen(true);
   };
 
   return (
@@ -153,7 +161,11 @@ const PharmacyMedicines = () => {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {medicines.map(medicine => (
-                <MedicineCard key={medicine._id} medicine={medicine} />
+                <MedicineCard 
+                  key={medicine._id} 
+                  medicine={medicine} 
+                  onReserve={handleReserve}
+                />
               ))}
             </div>
 
@@ -188,6 +200,13 @@ const PharmacyMedicines = () => {
           </>
         )}
       </div>
+
+      {/* Reservation Modal */}
+      <ReservationModal 
+        isOpen={isReserveModalOpen}
+        onClose={() => setIsReserveModalOpen(false)}
+        medicine={selectedMedicine}
+      />
     </div>
   );
 };

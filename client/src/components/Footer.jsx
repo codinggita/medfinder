@@ -105,6 +105,7 @@ const Footer = () => {
         { label: "Find Medicine", to: "/search" },
         { label: "Pharmacies", to: "/pharmacies" },
         { label: "My Orders", to: "/profile/orders" },
+        { label: "Contact Us", to: "/contact" },
         { label: "About Us", to: "/about" },
         { label: "Dashboard", to: "/dashboard" },
       ],
@@ -112,8 +113,8 @@ const Footer = () => {
     {
       title: "Help & Support",
       links: [
-        { label: "FAQs", to: "#" },
-        { label: "Contact Support", to: "#" },
+        { label: "FAQs", to: "/contact" },
+        { label: "Contact Support", to: "/contact" },
         { label: "Live Chat", to: "#", pulse: true },
         { label: "Privacy Policy", to: "#" },
       ],

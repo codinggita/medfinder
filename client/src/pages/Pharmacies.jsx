@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../api/config";
 import { Link } from "react-router-dom";
+import MedicineCard from '../components/MedicineCard';
 
 const Pharmacies = () => {
   const [pharmacies, setPharmacies] = useState([]);
@@ -8,8 +9,9 @@ const Pharmacies = () => {
 
   useEffect(() => {
     const fetchPharmacies = async () => {
+      setLoading(true); // Set loading to true at the start of the fetch
       try {
-        const { data } = await axios.get("http://localhost:5000/api/users/pharmacies");
+        const { data } = await api.get("/users/pharmacies"); // Keep original endpoint as per context
         setPharmacies(data);
         setLoading(false);
       } catch (error) {

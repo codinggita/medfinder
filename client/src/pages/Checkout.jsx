@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/config';
 import { useCart } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
 
@@ -73,7 +73,7 @@ const Checkout = () => {
         quantity: i.quantity,
         pharmacyName: i.pharmacyId?.name || '',
       }));
-      const { data } = await axios.post('http://localhost:5000/api/orders', {
+      const { data } = await api.post('/orders', {
         items,
         shippingAddress: form,
         paymentMethod: payment,

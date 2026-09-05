@@ -161,14 +161,45 @@ export default function About() {
             <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/20 rounded-[3rem] p-10 border-2 border-emerald-100 dark:border-emerald-900/40">
               <div className="space-y-6">
                 {[
-                  { emoji: '💊', title: 'Medicine Search', sub: 'Find from 300+ pharmacies instantly' },
-                  { emoji: '🚚', title: 'Express Delivery', sub: 'Door-to-door in under 60 minutes' },
+                  { 
+                    icon: (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 32 32" id="Pill">
+                        <path fill="#34a853" d="M16.3178 3.52789C19.6883 0.157369 25.1515 0.157369 28.522 3.52789C31.8925 6.89842 31.8925 12.3616 28.522 15.7321L21.4249 22.8292L21.4149 22.8193L15.7321 28.5021C12.3616 31.8726 6.89842 31.8726 3.52789 28.5021C0.157369 25.1316 0.157369 19.6684 3.52789 16.2979L10.625 9.20078L10.6349 9.21073L16.3178 3.52789ZM20.0007 21.4051L10.6249 12.0293L4.94211 17.7121C2.35263 20.3016 2.35263 24.4984 4.94211 27.0879C7.53158 29.6774 11.7284 29.6774 14.3179 27.0879L20.0007 21.4051ZM28 10C28 8.89543 27.1046 8 26 8C24.8954 8 24 8.89543 24 10C24 11.1046 24.8954 12 26 12C27.1046 12 28 11.1046 28 10Z"></path>
+                      </svg>
+                    ), 
+                    title: 'Medicine Search', 
+                    sub: 'Find from 300+ pharmacies instantly' 
+                  },
+                  { 
+                    icon: (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" fill="none" viewBox="0 0 64 64" id="Truck">
+                        <g transform="translate(64 0) scale(-1 1)" fill="#34a853">
+                          <path d="M2,40H38a1,1,0,0,0,1-1V7a1,1,0,0,0-1-1H2A1,1,0,0,0,1,7V39A1,1,0,0,0,2,40ZM3,8H37V38H3Z"/>
+                          <path d="M62,45h0V31a.992.992,0,0,0-.092-.419L56.712,19.324A4.041,4.041,0,0,0,53,17H45a4,4,0,0,0-4,4V42H2a1,1,0,0,0-1,1v4a1,1,0,0,0,1,1H5.263a8,8,0,1,0,15.474,0H34.263a7.993,7.993,0,1,0,15.668,3H62a1,1,0,0,0,1-1V46A1,1,0,0,0,62,45ZM45,19h8.081A2.005,2.005,0,0,1,54.9,20.162L60,31.219V45H53V43a1,1,0,0,0-1-1H43V21A2,2,0,0,1,45,19ZM3,46V44H7.726a8.069,8.069,0,0,0-1.644,2ZM13,56a6,6,0,1,1,6-6A6.006,6.006,0,0,1,13,56Zm6.918-10a8.069,8.069,0,0,0-1.644-2H36.726a8.069,8.069,0,0,0-1.644,2ZM42,56a6,6,0,1,1,6-6A6.006,6.006,0,0,1,42,56Zm19-7H49.931a7.99,7.99,0,0,0-2.657-5H51v2a1,1,0,0,0,1,1h9Z"/>
+                          <path d="M46,31h2.382l.723,1.447A1,1,0,0,0,50,33h7a1,1,0,0,0,.9-1.447l-5-10A1,1,0,0,0,52,21H46a1,1,0,0,0-1,1v8A1,1,0,0,0,46,31Zm1-8h4.382l4,8H50.618L49.9,29.553A1,1,0,0,0,49,29H47Z"/>
+                          <rect width="4" height="2" x="45" y="35"/>
+                          <path d="M13 47a3 3 0 103 3A3 3 0 0013 47zm0 4a1 1 0 111-1A1 1 0 0113 51zM42 47a3 3 0 103 3A3 3 0 0042 47zm0 4a1 1 0 111-1A1 1 0 0142 51zM22.157 11.743a5.95 5.95 0 10-8.414 8.414l11.1 11.1a5.95 5.95 0 108.414-8.414zM14 15.95a3.95 3.95 0 016.743-2.793L25.586 18 20 23.586l-4.843-4.843A3.924 3.924 0 0114 15.95zM29.05 31a3.924 3.924 0 01-2.793-1.157L21.414 25 27 19.414l4.843 4.843A3.95 3.95 0 0129.05 31zM11 24a6 6 0 106 6A6.006 6.006 0 0011 24zm0 2a4 4 0 013.858 3H7.142A4 4 0 0111 26zm0 8a4 4 0 01-3.858-3h7.716A4 4 0 0111 34z"/>
+                        </g>
+                      </svg>
+                    ),
+                    title: 'Express Delivery', 
+                    sub: 'Door-to-door in under 60 minutes' 
+                  },
                   { emoji: '✅', title: 'Quality Verified', sub: 'Only licensed, audited pharmacies' },
-                  { emoji: '📦', title: 'Order Tracking', sub: 'Live status from prep to delivery' },
+                  { 
+                    icon: (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" viewBox="0 0 64 64" id="Tracking">
+                        <path fill="#34a853" d="M32,2L5.4,14.6v34.8L32,62l26.6-12.6V14.6L32,2z M32,10.5l18.4,8.7L32,28L13.6,19.2L32,10.5z M10,23.3l20,9.5 v20.9l-20-9.5V23.3z M34,53.7V32.8l20-9.5v20.9L34,53.7z"/>
+                        <path fill="#34a853" d="M52,6c0-3.3-2.7-6-6-6s-6,2.7-6,6c0,4.5,6,10.5,6,10.5S52,10.5,52,6z M46,8.2c-1.2,0-2.2-1-2.2-2.2 s1-2.2,2.2-2.2s2.2,1,2.2,2.2S47.2,8.2,46,8.2z"/>
+                      </svg>
+                    ),
+                    title: 'Order Tracking', 
+                    sub: 'Live status from prep to delivery' 
+                  },
                 ].map((card, i) => (
                   <div key={i} className="flex items-center gap-5 bg-white dark:bg-gray-900 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-800">
-                    <div className="text-3xl w-12 h-12 flex items-center justify-center bg-emerald-50 dark:bg-emerald-900/30 rounded-xl flex-shrink-0">
-                      {card.emoji}
+                    <div className="w-12 h-12 flex items-center justify-center bg-emerald-50 dark:bg-emerald-900/30 rounded-xl flex-shrink-0">
+                      {card.icon ? card.icon : <span className="text-3xl">{card.emoji}</span>}
                     </div>
                     <div>
                       <p className="font-semibold text-gray-900 dark:text-white text-sm">{card.title}</p>

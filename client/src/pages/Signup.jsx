@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/config';
 import { AuthContext } from '../context/AuthContext';
 import signupImage from '../assets/signup_page.png';
 
@@ -24,7 +24,7 @@ const Signup = () => {
     }
 
     try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/signup', {
+      const { data } = await api.post('/auth/signup', {
         name,
         email,
         password,

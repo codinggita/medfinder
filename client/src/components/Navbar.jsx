@@ -51,6 +51,7 @@ const Navbar = () => {
           { name: 'Pharmacies', path: '/pharmacies' },
           { name: 'My Orders', path: '/profile/orders' },
           { name: 'About', path: '/about' },
+          { name: 'Contact', path: '/contact' },
           { name: 'Dashboard', path: '/dashboard' },
         ].map((link) => (
           <Link
@@ -82,10 +83,19 @@ const Navbar = () => {
 
         <button
           onClick={toggleTheme}
-          className="w-12 h-12 flex items-center justify-center rounded-2xl bg-gray-50 dark:bg-gray-800 hover:bg-emerald-50 dark:hover:bg-gray-700 transition-all duration-300 text-xl shadow-sm active:scale-90"
+          className="w-12 h-12 flex items-center justify-center rounded-2xl bg-gray-50 dark:bg-gray-800 hover:bg-emerald-50 dark:hover:bg-gray-700 transition-all duration-300 shadow-sm active:scale-90"
           aria-label="Toggle Theme"
         >
-          {theme === 'dark' ? '🌞' : '🌙'}
+          {theme === 'dark' ? (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" viewBox="0 0 128 128" id="Sunny">
+              <circle cx="64" cy="64" r="18" stroke="#FFFFFF" strokeWidth="6" className="colorStroke000000 svgStroke"></circle>
+              <path stroke="#FFFFFF" strokeLinecap="round" strokeLinejoin="round" strokeWidth="6" d="M64 33L64 25M79.2967 37.2543L81.4995 33.439M95 64L102 64M90.4957 79.0472L94.311 81.25M90.4953 48.4528L96.0063 45.271M48.7028 37.2545L45.521 31.7434M64 102L64 94M46.4994 94.0607L48.7021 90.2454M26 64L33 64M33.6895 46.2501L37.5049 48.4529M31.9933 82.2289L37.5044 79.0471M82.4792 95.7567L79.2974 90.2456" className="colorStroke000000 svgStroke"></path>
+            </svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 30 30" id="moon">
+              <path fill="none" stroke="#34a853" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.63 20a9 9 0 0 1-9.12-8.78A8.61 8.61 0 0 1 14.17 5 10.17 10.17 0 0 0 5 15a10.23 10.23 0 0 0 10.42 10A10.43 10.43 0 0 0 25 18.9a9.3 9.3 0 0 1-4.37 1.1Z" className="colorStroke000000 svgStroke"></path>
+            </svg>
+          )}
         </button>
 
         {user ? (
